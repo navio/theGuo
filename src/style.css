@@ -1,0 +1,7 @@
+h1, p {
+  font-family: Lato;
+}
+
+.bc-row-responsive, bc-col-responsive, .bc-box > .bc-box  {
+  border: 2px dotted black;
+}
