@@ -1,0 +1,34 @@
+.hotspot {
+  .editor .bc-box, 
+  .editor .bc-col-responsive,
+  .editor .bc-row-responsive,
+  .editor .bc-section,
+  .editor .bc-container {
+    border: 1px dotted blue;
+    min-height: 15px !important;
+  }
+  .drpr{
+    min-width: 100%;
+    min-height: 20px;
+    background-color: yellow;
+  }
+}
+
+.propselect {
+  width: 33%;
+  display: inline-block;
+  padding: 8px;
+  font-size:12px
+}
+.propselect > input,
+.propselect > select {
+  float: right;
+  width: 50%;
+  border: 1px solid #ccc;
+}
+
+.propselect > select {
+  background: white;
+  font-size: 12px;
+  padding: 3px;
+}

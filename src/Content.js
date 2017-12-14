@@ -1,6 +1,12 @@
 import React from 'react';
 import BC from 'ripcity';
+import Dropr from 'Dropr.js';
 
-export default (props) => {
-  return <BC.Box hasBorder>Designer</BC.Box>
-};
+export default class Content extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return <BC.Box paddingSize="none" cssClass="editor" hasBorder><Dropr /></BC.Box>
+  }
+}
