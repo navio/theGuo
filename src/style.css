@@ -1,7 +1,27 @@
-h1, p {
-  font-family: Lato;
+#editor > .bc-box, 
+#editor > .bc-col-responsive,
+#editor > .bc-row-responsive,
+#editor > .bc-section,
+#editor > .bc-container {
+  border: 1px dotted blue;
 }
 
-.bc-row-responsive, bc-col-responsive, .bc-box > .bc-box  {
-  border: 2px dotted black;
+.propselect {
+  width: 33%;
+  display: inline-block;
+  padding: 8px;
+  font-size:12px
 }
+.propselect > input,
+.propselect > select {
+  float: right;
+  width: 50%;
+  border: 1px solid #ccc;
+}
+
+.propselect > select {
+  background: white;
+  font-size: 12px;
+  padding: 3px;
+}
+
