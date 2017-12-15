@@ -22,4 +22,7 @@ class App extends Component {
   }
 }
 
+
+window.elementMap = {};
+
 render(<App />, document.getElementById('root'));

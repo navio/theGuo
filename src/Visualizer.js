@@ -52,6 +52,7 @@ const commonPropTypes = [
   'inline',
   'disabled',
   'buttonType',
+  'gridUnits',
   'textSize',
   'spacing',
   'spacingTop',
@@ -149,6 +150,22 @@ export default class Visualisation extends React.Component {
     ev.dataTransfer.setData('props', JSON.stringify(this.state.currentProps));
 
   }
+  
+  prevent = (ev) => {
+    ev.preventDefault();
+  }
+
+  trashDrop = (ev) =>{
+
+    console.log('TrashME!');
+    let mapElement = ev.dataTransfer.getData('origin');
+    let child = ev.dataTransfer.getData('location');
+    console.log(
+        mapElement,child,
+        window.elementMap[mapElement],
+        window.elementMap);
+        window.elementMap[mapElement].deleteMe(child)
+  }
 
   render() {
     let currentComponent = React.createElement(BC[this.state.selectedComponent], this.state.currentProps);
@@ -213,7 +230,7 @@ export default class Visualisation extends React.Component {
         </div>
       </div>
 
-      <div id="trash-can">
+      <div id="trash-can" onDragOver={this.prevent} onDrop={this.trashDrop}>
         <BC.Icon iconType="trash" iconSize="large" />
       </div>
     </div>;
