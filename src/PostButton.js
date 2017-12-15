@@ -17,15 +17,18 @@ class PostButton extends React.Component {
                  request.open('GET', url, true);
                  request.send(url);
   	*/
+  	let key = prompt('Please enter a key') + '-' + Date.now();
   	let url = '/upload';
   	let data = {
-  		'file-name': 'legit-test.html',
+  		'file-name': key + '.html',
   		'htmlString': document.querySelector('.drpr').innerHTML
   	};
   	let request = new XMLHttpRequest();
   	request.open('PUT', url, true);
   	request.setRequestHeader('Content-type','application/json; charset=utf-8');
   	request.send(JSON.stringify(data));
+
+  	alert('Done! Schedule your symphony component with the key of ' + key);
   }
 
   render() {
