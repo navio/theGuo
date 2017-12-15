@@ -166,6 +166,7 @@ export default class Visualisation extends React.Component {
         <BC.LetterSpace />
         <BC.Text textBold textColor="inverse">Build a widget</BC.Text>
         <PostButton />
+        <BC.Button inline={true} cssClass="header-button" id="save-button">Save</BC.Button>
       </BC.Box>
 
       <div id="visualizer-section-main">

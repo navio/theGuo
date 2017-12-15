@@ -30,12 +30,10 @@ class PostButton extends React.Component {
 
   render() {
   	return (
-  		<span style={{float: 'right', 'margin-top': '-5px'}}>
-	  		<BC.Button onClick={this.postData.bind(this)} inline="true" buttonType="primary">
-	  			Submit
+			<BC.Button onClick={this.postData.bind(this)} inline="true" buttonType="primary" cssClass="header-button">
+				Submit
 			</BC.Button>
-		</span>
-	);
+		);
   }
 }
 

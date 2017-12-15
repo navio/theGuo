@@ -1,3 +1,8 @@
+.header-button {
+  float: right;
+  margin: -6px 6px;
+}
+
 .hotspot .editor .bc-box, 
 .hotspot .editor .bc-col-responsive,
 .hotspot .editor .bc-row-responsive,
@@ -45,6 +50,9 @@ html, body, #root {
 
 #visualizer-section-header {
   height: 59px;
+}
+#visualizer-section-header > * {
+  vertical-align: middle;
 }
 #visualizer-section-main {
   height: calc(100% - 59px);
