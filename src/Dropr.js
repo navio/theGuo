@@ -84,7 +84,9 @@ others['outerContainer'] = {
                                   deleteMe: this.deleteMyChild(currentMap)  
                                 };
     this.setState({ content: currentContent })
-    console.log(currentContent)
+    console.log(currentContent);
+
+    this.dragLeave();
   }
 
   dragEnter(event) {
