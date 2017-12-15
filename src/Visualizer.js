@@ -112,7 +112,7 @@ export default class Visualisation extends React.Component {
 
     return (ev) => {
       let newParameter = {};
-      newParameter[props] = ev.target.value;
+      newParameter[props] = isNaN(ev.target.value) ? ev.target.value : Number(ev.target.value);
       let newProp = Object.assign(this.state.currentProps, newParameter);
       this.setState({
         'currentProps': newProp
