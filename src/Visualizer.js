@@ -280,10 +280,12 @@ export default class Visualisation extends React.Component {
         <div id="trash-can" onDragOver={this.prevent} onDrop={this.trashDrop}>
           <BC.Icon iconType="trash" iconSize="large" />
         </div>
-      </div>
-      <div id="edit-can" onDragOver={this.prevent} onDrop={this.editDrop} >
+        <div id="edit-can" onDragOver={this.prevent} onDrop={this.editDrop} >
         <BC.Icon iconType="series" iconSize="large" />
-      </div>);
+      </div>
+      </div>
+      
+      )
   }
 
 }
