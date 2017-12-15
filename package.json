@@ -3,11 +3,11 @@
   "description": "",
   "homepage": "https://stackblitz.com/edit/brickcity-dnd-config",
   "dependencies": {
+    "prop-types": "15.6.0",
     "react": "16.1.1",
     "react-dom": "16.1.1",
     "react-scripts": "1.0.10",
-    "ripcity": "1.3.4",
-    "prop-types": "15.6.0"
+    "ripcity": "^1.4.0"
   },
   "version": "0.1.0",
   "private": true,

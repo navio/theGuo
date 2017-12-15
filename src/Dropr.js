@@ -54,16 +54,24 @@ class Dropr extends React.Component {
 
     let { children, ...others } = newProps; // get props
 
+    if (others.drag === 'true') {
+      if (!others.cssClass) {
+        others.cssClass = 'draggable';
+      } else {
+        others.cssClass += ' draggable';
+      }
+    }
+
     let currentMap = Object.keys(window.elementMap).length + 1; // Global Object Marker
 
-    let newElement =
-      React.createElement('div', {
+others['outerContainer'] = {
             draggable: true,
             'onDragStart':this.dragStart,
-            className: 'dragger',
             currentMap
-        }, React.createElement(BC[newComponent], others, 
-           (newComponent !== 'Image' ? React.createElement(Dropr, {}, children) : null)));
+        };
+    let newElement =
+       React.createElement(BC[newComponent], others, 
+           (newComponent !== 'Image' ? React.createElement(Dropr, {}, children) : null));
 
     let currentContent = this.state.content;
     currentContent = Array.isArray(currentContent) ? currentContent : [];
