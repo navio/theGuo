@@ -281,7 +281,7 @@ export default class Visualisation extends React.Component {
           <BC.Icon iconType="trash" iconSize="large" />
         </div>
         <div id="edit-can" onDragOver={this.prevent} onDrop={this.editDrop} >
-        <BC.Icon iconType="series" iconSize="large" />
+        <BC.Icon iconType="edit" iconSize="large" />
       </div>
       </div>
       
