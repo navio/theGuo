@@ -52,6 +52,7 @@ const commonPropTypes = [
   'colorPalette',
   'iconType',
   'inline',
+  'source',
   'disabled',
   'buttonType',
   'gridUnits',
