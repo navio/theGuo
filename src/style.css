@@ -1,18 +1,17 @@
-.hotspot {
-  .editor .bc-box, 
-  .editor .bc-col-responsive,
-  .editor .bc-row-responsive,
-  .editor .bc-section,
-  .editor .bc-container {
+  .hotspot .editor .bc-box, 
+  .hotspot .editor .bc-col-responsive,
+  .hotspot .editor .bc-row-responsive,
+  .hotspot .editor .bc-section,
+  .hotspot .editor .bc-container {
     border: 1px dotted blue;
     min-height: 15px !important;
   }
-  .drpr{
+  .hotspot .drpr{
     min-width: 100%;
     min-height: 20px;
     background-color: yellow;
   }
-}
+
 
 .propselect {
   width: 33%;

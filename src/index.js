@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import Layout from './Layout';
 import Visualizer from './Visualizer';
 import Content from './Content';
-import './style.scss';
+import './style.css';
 import 'ripcity/dist/styles.css'
 
 class App extends Component {
@@ -17,7 +17,6 @@ class App extends Component {
     return (
       <Layout>
         <Visualizer />
-        <Content />
       </Layout>
     );
   }

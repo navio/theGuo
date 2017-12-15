@@ -1,6 +1,6 @@
 import React from 'react';
 import BC from 'ripcity';
-import Dropr from 'Dropr.js';
+import Dropr from './Dropr.js';
 
 export default class Content extends React.Component {
   constructor(props) {
