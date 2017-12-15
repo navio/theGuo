@@ -13,17 +13,16 @@ class Dropr extends React.Component {
     this.dragLeave = this.dragLeave.bind(this);
   }
 
+
+
   prevent = (ev) => {
     ev.preventDefault();
   }
 
   deleteMyChild(element){
     return (child) =>{
-      console.log("state",this.state.content)
       let children = [].concat(this.state.content);
-      console.log('tryiing?',children, child)
       children.splice(child, 1); // EraseChildren.
-      console.log(children)
       delete window.elementMap[element];
       this.setState({
         content: children
@@ -41,13 +40,15 @@ class Dropr extends React.Component {
     ev.dataTransfer.setData('props', JSON.stringify(props));
     ev.dataTransfer.setData('origin',currentMap);
     ev.dataTransfer.setData('location',location);
+    ev.dataTransfer.setData('editor',true);
   }
+
 
   dropped = (ev) => {
     ev.preventDefault();
     ev.stopPropagation();
     if(!ev.dataTransfer.getData('creator')) return;
-    
+
     let origin = ev.dataTransfer.getData('origin');
     let newComponent = ev.dataTransfer.getData('component');
     let newProps = ev.dataTransfer.getData('props') ? 
@@ -85,8 +86,6 @@ others['outerContainer'] = {
                                   deleteMe: this.deleteMyChild(currentMap)  
                                 };
     this.setState({ content: currentContent })
-    console.log(currentContent);
-
     this.dragLeave();
   }
 

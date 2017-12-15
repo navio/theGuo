@@ -98,6 +98,7 @@ export default class Visualisation extends React.Component {
       currentProps: {}
     }
     this.dragStart = this.dragStart.bind(this);
+    this.editDrop = this.editDrop.bind(this);
   }
 
   componentDidMount() {
@@ -186,6 +187,20 @@ export default class Visualisation extends React.Component {
         window.elementMap[mapElement].deleteMe(child)
   }
 
+  editDrop = (ev) =>{
+        console.log('editme');
+        if(ev.dataTransfer.getData('creator')) return;
+        if(!ev.dataTransfer.getData('editor')) return;
+
+        let mapElement = ev.dataTransfer.getData('origin');
+        let {type, props, deleteMe} = window.elementMap[mapElement];
+        // let child = ev.dataTransfer.getData('location');
+        this.setState({selectedComponent: type,
+                        currentProps: props
+
+        });
+      }
+
   render() {
     let currentComponent = React.createElement(BC[this.state.selectedComponent], this.state.currentProps);
     let currentPropTypes = Object.keys(BC[this.state.selectedComponent].propTypes || BC[this.state.selectedComponent].PropTypes || {});
@@ -266,7 +281,9 @@ export default class Visualisation extends React.Component {
           <BC.Icon iconType="trash" iconSize="large" />
         </div>
       </div>
-    );
+      <div id="edit-can" onDragOver={this.prevent} onDrop={this.editDrop} >
+        <BC.Icon iconType="series" iconSize="large" />
+      </div>);
   }
 
 }

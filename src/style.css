@@ -119,6 +119,19 @@ html, body, #root {
 #trash-can:hover {
   opacity: 1;
 }
+#edit-can {
+  position: absolute;
+  z-index: 999;
+  bottom: 120px;
+  right: 25px;
+  padding: 25px;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.2);
+  opacity: 0.5;
+}
+#edit-can:hover {
+  opacity: 1;
+}
 
 .bc-switch-label > .bc-text {
   position: relative;
