@@ -10,7 +10,7 @@ const initialComponent = 'Button'
 const components = Object.keys(BC);
 
 const boolTypes = ['', 'true', 'false'];
-const sizeTypes = ['', 'micro', 'mini', 'small', 'base', 'medium', 'large', 'extra-large'];
+const sizeTypes = ['', 'none', 'micro', 'mini', 'small', 'base', 'medium', 'large', 'extra-large'];
 const colorTypes = ['', 'active', 'base', 'error', 'secondary', 'tertiary'];
 const textAlignTypes = ['', 'left', 'right', 'center'];
 const paletteTypes = ['', 'default', 'inverse'];
@@ -42,6 +42,40 @@ const realNonHackyPropTypes = {
   textNormal: boolTypes,
   textNowrap: boolTypes
 };
+const commonPropTypes = [
+  'backgroundColor',
+  'hasBorder',
+  'textAlign',
+  'color',
+  'colorPalette',
+  'iconType',
+  'inline',
+  'disabled',
+  'buttonType',
+  'textSize',
+  'spacing',
+  'spacingTop',
+  'paddingSize',
+  'textBold',
+  'textCapitalize',
+  'textEllipses',
+  'textEmphasis',
+  'textQuote',
+  'textStrike',
+  'textNormal',
+  'textNowrap',
+  'children'
+];
+
+function resizeLayout() {
+  let main = document.getElementById('visualizer-section-main');
+  let configuration = document.getElementById('visualizer-section-configuration');
+  let workspace = document.getElementById('visualizer-section-workspace');
+  if (main && configuration && workspace) {
+    workspace.style.height = main.offsetHeight - configuration.offsetHeight + 'px';
+  }
+}
+document.addEventListener('resize', resizeLayout);
 
 
 export default class Visualisation extends React.Component {
@@ -53,6 +87,10 @@ export default class Visualisation extends React.Component {
       currentProps: {}
     }
     this.dragStart = this.dragStart.bind(this);
+  }
+
+  componentDidMount() {
+    resizeLayout();
   }
 
   updateCurrentComponentProps(props) {
@@ -70,18 +108,33 @@ export default class Visualisation extends React.Component {
   componentChange(ev) {
     this.setState({ currentProps: {}, selectedComponent: ev.target.innerHTML });
   }
+  
+  renderProps(props) {
+    return props.map((x) => (
+      <div className="propselect" >
+        <div className="propselect-label">
+          {x === 'children' ? 'content' : x}
+        </div>
+        <div className="propselect-input">
+          {this.getInputForProp(x)}
+        </div>
+      </div>
+    ));
+  }
 
   getInputForProp(prop) {
     const typesForProp = realNonHackyPropTypes[prop];
     if (typesForProp) {
       return (
-        <select onChange={this.updateCurrentComponentProps(prop).bind(this)} >
+        <BC.Dropdown onChange={this.updateCurrentComponentProps(prop).bind(this)} >
           {typesForProp.map(x => (
-            <option>{x}</option>
+            <BC.DropdownOption>{x}</BC.DropdownOption>
           ))}
-        </select>);
+        </BC.Dropdown>);
     } else {
-      return (<input onChange={this.updateCurrentComponentProps(prop).bind(this)} />);
+      return (
+        <BC.TextInput onChange={this.updateCurrentComponentProps(prop).bind(this)} />
+      );
     }
   }
 
@@ -96,59 +149,69 @@ export default class Visualisation extends React.Component {
   render() {
     let currentComponent = React.createElement(BC[this.state.selectedComponent], this.state.currentProps);
     let currentPropTypes = Object.keys(BC[this.state.selectedComponent].propTypes || BC[this.state.selectedComponent].PropTypes || {});
-
-    currentPropTypes.push('children');
+    currentPropTypes.unshift('children');
     currentPropTypes.push('drag');
+    // split props into common and advanced
+    let currentCommonPropTypes = [], currentAdvancedPropTypes = [];
+    currentPropTypes.forEach(prop => commonPropTypes.indexOf(prop) > -1 ? currentCommonPropTypes.push(prop) : currentAdvancedPropTypes.push(prop));
 
-    return <div>
-    <BC.Box paddingSize="small" backgroundColor="black">
-      <BC.Image imageHeight="24px"
-        source="http://g-ec2.images-amazon.com/images/G/01/audibleweb/brickcity/1.0/logos/audible_mark_solar._V314169480_.svg" />
-      <BC.LetterSpace />
-      <BC.Text textBold="true" textColor="inverse">Build a widget</BC.Text>
-      <PostButton />
-    </BC.Box>
-    <BC.Box paddingSize="mini" hasBorder>
-      <BC.GridRow>
-        <BC.GridColumn gridUnitsLg="12">
-          <BC.GridRow>
-            <BC.GridColumn spacing="mini" gridUnitsSm="12" gridUnitsLg="2">
-              <BC.Box paddingSize="mini">
-              Hide preview: <BC.ToggleSwitch onChange={()=>{document.body.classList.toggle('hotspot')}} />
-              </BC.Box>
+    return <div id="visualizer-section-wrapper">
+      <BC.Box paddingSize="small" backgroundColor="black" id="visualizer-section-header">
+        <BC.Image imageHeight="24px"
+          source="http://g-ec2.images-amazon.com/images/G/01/audibleweb/brickcity/1.0/logos/audible_mark_solar._V314169480_.svg" />
+        <BC.LetterSpace />
+        <BC.Text textBold textColor="inverse">Build a widget</BC.Text>
+        <PostButton />
+      </BC.Box>
 
-              <BC.List listType="nostyle">
-                {components.map((x, l) => (
-                  <BC.Link onClick={this.componentChange.bind(this)}>
-                    <BC.ListItem>{x}</BC.ListItem>
-                  </BC.Link>
-                ))}
-              </BC.List>
-            </BC.GridColumn>
-            <BC.GridColumn gridUnitsSm="12" gridUnitsLg="10">
-              <BC.Box hasBorder >
-                <div className="editor" draggable="true" onDragStart={this.dragStart}>{currentComponent}</div>
-              </BC.Box>
-              <BC.Expander active="true" height="10px" showText="Configuration">
-                <BC.Box>
-                  {
-                    currentPropTypes.map((x) => (
-                      <div className="propselect" >{x === 'children' ? 'Content' : x}: {this.getInputForProp(x)}</div>
-                    ))
-                  }
-                </BC.Box>
-              </BC.Expander>
+      <div id="visualizer-section-main">
+        <BC.Box id="visualizer-section-component-list">
+          <BC.Heading headingLevel="2" spacing="mini" textSize="medium">
+            1. Choose
+          </BC.Heading>
+          <BC.List listType="nostyle">
+            {components.map((x, l) => (
+              <BC.Link onClick={this.componentChange.bind(this)}>
+                <BC.ListItem>{x}</BC.ListItem>
+              </BC.Link>
+            ))}
+          </BC.List>
+        </BC.Box>
 
-              <br/>
-              <Content />
+        <div id="visualizer-section-workspace-wrapper">
+          <BC.Box id="visualizer-section-configuration">
+            <BC.Heading headingLevel="2" spacing="mini" textSize="medium">
+              2. Configure (<strong>{this.state.selectedComponent}</strong>)
+            </BC.Heading>
+            <BC.Box hasBorder spacing="mini">
+              <div className="editor" draggable="true" onDragStart={this.dragStart}>{currentComponent}</div>
+            </BC.Box>
 
-            </BC.GridColumn>
-          </BC.GridRow>
+            <div>
+              <BC.Heading headingLevel="2">Common Options</BC.Heading>
+              { this.renderProps(currentCommonPropTypes) }
+            </div>
 
-        </BC.GridColumn>
+            <BC.Expander height="10px" showText="Advanced options">
+                <BC.Heading headingLevel="2" spacingTop="mini">Advanced Options</BC.Heading>
+                { this.renderProps(currentAdvancedPropTypes) }
+            </BC.Expander>
+          </BC.Box>
 
-      </BC.GridRow>
-    </BC.Box></div>;
+          <BC.Box id="visualizer-section-workspace">
+            <BC.ToggleSwitch cssClass="bc-pub-float-right" onChange={()=>{document.body.classList.toggle('hotspot')}} labelOff="Preview Mode" labelOn="Preview Mode" />
+
+            <BC.Heading headingLevel="2" spacing="mini" textSize="medium">3. Drag into Workspace</BC.Heading>
+
+            <Content />
+          </BC.Box>
+        </div>
+      </div>
+
+      <div id="trash-can">
+        <BC.Icon iconType="trash" iconSize="large" />
+      </div>
+    </div>;
   }
 
 }

@@ -1,33 +1,82 @@
-  .hotspot .editor .bc-box, 
-  .hotspot .editor .bc-col-responsive,
-  .hotspot .editor .bc-row-responsive,
-  .hotspot .editor .bc-section,
-  .hotspot .editor .bc-container {
-    border: 1px dotted blue;
-    min-height: 15px !important;
-  }
-  .hotspot .drpr{
-    min-width: 100%;
-    min-height: 20px;
-    background-color: yellow;
-  }
+.hotspot .editor .bc-box, 
+.hotspot .editor .bc-col-responsive,
+.hotspot .editor .bc-row-responsive,
+.hotspot .editor .bc-section,
+.hotspot .editor .bc-container,
+.hotspot .editor .bc-paragraph {
+  border: 4px dashed #ABC;
+  min-height: 50px !important;
+}
+
+.drpr {
+  display: inline;
+}
+.hotspot .drpr{
+  min-width: 50px;
+  background-color: #DEF;
+  display: inline-block;
+}
+.hotspot .editor > .drpr {
+  min-height: 100px;
+  display: block;
+  padding-bottom: 50px;
+}
 
 
 .propselect {
-  width: 33%;
+  width: 180px;
   display: inline-block;
   padding: 8px;
   font-size:12px
 }
-.propselect > input,
-.propselect > select {
-  float: right;
-  width: 50%;
-  border: 1px solid #ccc;
+.propselect-label {
+  font-variant: small-caps;
+  font-size: 14px;
 }
 
-.propselect > select {
-  background: white;
-  font-size: 12px;
-  padding: 3px;
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+#visualizer-section-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+#visualizer-section-header {
+  height: 59px;
+}
+#visualizer-section-main {
+  height: calc(100% - 59px);
+}
+#visualizer-section-component-list {
+  float: left;
+  height: 100%;
+  width: 160px;
+  overflow: auto;
+  background-color: #E9E9E9;
+}
+#visualizer-section-workspace-wrapper {
+  float: left;
+  width: calc(100% - 160px);
+}
+#visualizer-section-configuration {
+  border-bottom: 3px solid #E9E9E9;
+}
+#visualizer-section-workspace {
+}
+
+#trash-can {
+  position: absolute;
+  z-index: 999;
+  bottom: 25px;
+  right: 25px;
+  padding: 25px;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.2);
+  opacity: 0.5;
+}
+#trash-can:hover {
+  opacity: 1;
 }
