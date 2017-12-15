@@ -14,15 +14,6 @@ class PostButton extends React.Component {
 
   postData() {
   	console.log(document.querySelector('.drpr').innerHTML);
-  	/*
-  	{"file-name":"blah", "htmlString":"anyValue"}
-  	PUT
-  	/upload
-  	                var url = "/ajax-refmarker" + ref;
-                 var request = new XMLHttpRequest();
-                 request.open('GET', url, true);
-                 request.send(url);
-  	*/
   	let key = prompt('Please enter a key') + '-' + Date.now();
   	let url = '/upload';
   	let data = {

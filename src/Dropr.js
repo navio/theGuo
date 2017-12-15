@@ -21,7 +21,17 @@ class Dropr extends React.Component {
     ev.stopPropagation();
     let newComponent = ev.dataTransfer.getData('component');
     let newProps = JSON.parse(ev.dataTransfer.getData('props')) || {};
+
+
     let {children, ...others} = newProps; 
+
+    if (others.drag === 'true') {
+      if (!others.cssClass) {
+        others.cssClass = 'draggable';
+      } else {
+        others.cssClass += ' draggable';
+      }
+    }
   
     let newElement =  React.createElement(BC[newComponent],others,( newComponent !== 'Image' ? React.createElement(Dropr,{},children) : null ) );
     

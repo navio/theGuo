@@ -16,6 +16,7 @@ const textAlignTypes = ['', 'left', 'right', 'center'];
 const paletteTypes = ['', 'default', 'inverse'];
 const buttonTypes = ['', 'primary', 'secondary'];
 const realNonHackyPropTypes = {
+  drag: boolTypes,
   anchor: boolTypes,
   active: boolTypes,
   backgroundColor: colorTypes,
@@ -96,7 +97,9 @@ export default class Visualisation extends React.Component {
     let currentComponent = React.createElement(BC[this.state.selectedComponent], this.state.currentProps);
     let currentPropTypes = Object.keys(BC[this.state.selectedComponent].propTypes || BC[this.state.selectedComponent].PropTypes || {});
 
-    currentPropTypes.push('children')
+    currentPropTypes.push('children');
+    currentPropTypes.push('drag');
+
     return <div>
     <BC.Box paddingSize="small" backgroundColor="black">
       <BC.Image imageHeight="24px"
