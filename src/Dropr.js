@@ -46,7 +46,8 @@ class Dropr extends React.Component {
   dropped = (ev) => {
     ev.preventDefault();
     ev.stopPropagation();
-
+    if(!ev.dataTransfer.getData('creator')) return;
+    
     let origin = ev.dataTransfer.getData('origin');
     let newComponent = ev.dataTransfer.getData('component');
     let newProps = ev.dataTransfer.getData('props') ? 

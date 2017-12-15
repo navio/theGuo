@@ -140,7 +140,8 @@ export default class Visualisation extends React.Component {
     ev.dataTransfer.clearData();
     ev.dataTransfer.setData('component', this.state.selectedComponent)
     ev.dataTransfer.setData('props', JSON.stringify(this.state.currentProps));
-
+    ev.dataTransfer.setData('creator',true);
+    
   }
   
   prevent = (ev) => {
@@ -149,7 +150,7 @@ export default class Visualisation extends React.Component {
 
   trashDrop = (ev) =>{
 
-    console.log('TrashME!');
+    if(ev.dataTransfer.getData('creator')) return;
     let mapElement = ev.dataTransfer.getData('origin');
     let child = ev.dataTransfer.getData('location');
     console.log(
