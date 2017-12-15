@@ -6,10 +6,10 @@ class PostButton extends React.Component {
     super(props);
 
     // this is shit. I don't care
-    let worker = new Worker('/public/js/worker.js');
-    setInterval(function() {
-    	worker.postMessage([document.querySelector('.drpr').innerHTML]);
-    }, 5000);
+    //let worker = new Worker('/public/js/worker.js');
+    //setInterval(function() {
+    //	worker.postMessage([document.querySelector('.drpr').innerHTML]);
+    //}, 5000);
   }
 
   postData() {

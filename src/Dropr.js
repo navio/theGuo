@@ -9,6 +9,8 @@ class Dropr extends React.Component {
       content: props.children
     }
     this.deleteMyChild = this.deleteMyChild.bind(this);
+    this.dragEnter = this.dragEnter.bind(this);
+    this.dragLeave = this.dragLeave.bind(this);
   }
 
   prevent = (ev) => {
@@ -85,9 +87,18 @@ others['outerContainer'] = {
     console.log(currentContent)
   }
 
+  dragEnter(event) {
+    this.setState({ isActive: true });
+  }
+
+  dragLeave(event) {
+    this.setState({ isActive: false });
+  }
+
 
   render() {
-    return <div className="drpr" {...this.props} onDragOver={this.prevent} onDrop={this.dropped} children={this.state.content} />
+    return <div className={'drpr ' + ( this.state.isActive ? 'active' : '' )} {...this.props} onDragOver={this.prevent} onDrop={this.dropped}
+                onDragEnter={this.dragEnter} onDragLeave={this.dragLeave} children={this.state.content} />
   }
 
 }

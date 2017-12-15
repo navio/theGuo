@@ -57,14 +57,6 @@ const commonPropTypes = [
   'spacing',
   'spacingTop',
   'paddingSize',
-  'textBold',
-  'textCapitalize',
-  'textEllipses',
-  'textEmphasis',
-  'textQuote',
-  'textStrike',
-  'textNormal',
-  'textNowrap',
   'children'
 ];
 
@@ -201,30 +193,36 @@ export default class Visualisation extends React.Component {
         </BC.Box>
 
         <div id="visualizer-section-workspace-wrapper">
-          <BC.Box id="visualizer-section-configuration">
-            <BC.Heading headingLevel="2" spacing="mini" textSize="medium">
-              2. Configure (<strong>{this.state.selectedComponent}</strong>)
-            </BC.Heading>
-            <BC.Box hasBorder spacing="mini">
-              <div className="editor" draggable="true" onDragStart={this.dragStart}>{currentComponent}</div>
+          <div id="visualizer-section-configuration">
+            <BC.Box>
+              <BC.Heading headingLevel="2" spacing="mini" textSize="medium">
+                2. Configure (<strong>{this.state.selectedComponent}</strong>)
+              </BC.Heading>
+              <BC.Box hasBorder spacing="mini">
+                <div className="editor" draggable="true" onDragStart={this.dragStart}>{currentComponent}</div>
+              </BC.Box>
+
+              <div>
+                <BC.Heading headingLevel="2">Common Options</BC.Heading>
+                { this.renderProps(currentCommonPropTypes) }
+              </div>
+
+              <BC.Expander height="10px" showText="Advanced options">
+                  <BC.Heading headingLevel="2" spacingTop="mini">Advanced Options</BC.Heading>
+                  { this.renderProps(currentAdvancedPropTypes) }
+              </BC.Expander>
             </BC.Box>
 
-            <div>
-              <BC.Heading headingLevel="2">Common Options</BC.Heading>
-              { this.renderProps(currentCommonPropTypes) }
-            </div>
+            <div style={{borderBottom: '3px solid #E9E9E9' }} />
 
-            <BC.Expander height="10px" showText="Advanced options">
-                <BC.Heading headingLevel="2" spacingTop="mini">Advanced Options</BC.Heading>
-                { this.renderProps(currentAdvancedPropTypes) }
-            </BC.Expander>
-          </BC.Box>
+            <BC.Box>
+              <BC.ToggleSwitch cssClass="bc-pub-float-right" onChange={()=>{document.body.classList.toggle('hotspot')}} labelOff="Preview Mode" labelOn="Preview Mode" />
+
+              <BC.Heading headingLevel="2" textSize="medium">3. Drag into Workspace</BC.Heading>
+            </BC.Box>
+          </div>
 
           <BC.Box id="visualizer-section-workspace">
-            <BC.ToggleSwitch cssClass="bc-pub-float-right" onChange={()=>{document.body.classList.toggle('hotspot')}} labelOff="Preview Mode" labelOn="Preview Mode" />
-
-            <BC.Heading headingLevel="2" spacing="mini" textSize="medium">3. Drag into Workspace</BC.Heading>
-
             <Content />
           </BC.Box>
         </div>

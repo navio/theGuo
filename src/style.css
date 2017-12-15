@@ -10,7 +10,7 @@
 .hotspot .editor .bc-container,
 .hotspot .editor .bc-paragraph {
   border: 4px dashed #ABC;
-  min-height: 50px !important;
+  min-height: 40px !important;
 }
 
 
@@ -18,7 +18,7 @@
 .drpr {
   display: inline;
 }
-.hotspot .drpr{
+.hotspot .drpr {
   min-width: 50px;
   background-color: rgba(117, 160, 204, 0.3);
   display: inline-block;
@@ -33,9 +33,14 @@
 .hotspot .editor .bc-row-responsive > .drpr,
 .hotspot .editor .bc-section > div > .drpr,
 .hotspot .editor .bc-container > .drpr,
-.hotspot .editor .bc-paragraph > .drpr {
-  min-height: 50px;
+.hotspot .editor .bc-paragraph > .drpr,
+.hotspot .editor .bc-button > button > span > .drpr {
+  min-height: 40px;
   display: block;
+}
+
+.hotspot .editor .bc-button.bc-button-inline > button > span > .drpr {
+  display: inline-block;
 }
 
 .drpr.active {
@@ -84,9 +89,10 @@ html, body, #root {
   width: calc(100% - 160px);
 }
 #visualizer-section-configuration {
-  border-bottom: 3px solid #E9E9E9;
 }
 #visualizer-section-workspace {
+  padding-top: 0 !important;
+  overflow: auto;
 }
 
 #trash-can {
