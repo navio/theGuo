@@ -113,13 +113,17 @@ export default class Visualisation extends React.Component {
     return props.map((x) => (
       <div className="propselect" >
         <div className="propselect-label">
-          {x === 'children' ? 'content' : x}
+          {this.getPropLabel(x === 'children' ? 'content' : x)}
         </div>
         <div className="propselect-input">
           {this.getInputForProp(x)}
         </div>
       </div>
     ));
+  }
+
+  getPropLabel(name) {
+    return name.replace(/([a-z])([A-Z])/, '$1 $2').toUpperCase();
   }
 
   getInputForProp(prop) {
