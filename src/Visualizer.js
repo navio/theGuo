@@ -7,7 +7,7 @@ import PostButton from './PostButton';
 const logo = 'https://m.media-amazon.com/images/G/01/audibleweb/arya/navigation/audible_logo._V517446980_.svg';
 const initialComponent = 'Button'
 
-const components = Object.keys(BC);
+let components = ["Alert", "AudioButton", "Box", "Button", "Container", "Divider", "Dropdown", "DropdownOption", "GridColumn", "GridRow", "Heading", "Icon", "Image", "Link", "List", "ListItem", "Pipe","Section", "Text", "TextInput"];
 
 const boolTypes = ['', 'true', 'false'];
 const sizeTypes = ['', 'none', 'micro', 'mini', 'small', 'base', 'medium', 'large', 'extra-large'];
@@ -36,6 +36,8 @@ const realNonHackyPropTypes = {
   textBold: boolTypes,
   textCapitalize: boolTypes,
   textEllipses: boolTypes,
+  textSpace: boolTypes,
+  textFont: buttonTypes,
   textEmphasis: boolTypes,
   textQuote: boolTypes,
   textStrike: boolTypes,
@@ -57,6 +59,16 @@ const commonPropTypes = [
   'spacing',
   'spacingTop',
   'paddingSize',
+  'textBold',
+  'textCapitalize',
+  'textEllipses',
+  'textEmphasis',
+  'textQuote',
+  'textStrike',
+  'textFont',
+  'textSpace',
+  'textNormal',
+  'textNowrap',
   'children'
 ];
 

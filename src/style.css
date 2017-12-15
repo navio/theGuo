@@ -8,7 +8,8 @@
 .hotspot .editor .bc-row-responsive,
 .hotspot .editor .bc-section,
 .hotspot .editor .bc-container,
-.hotspot .editor .bc-paragraph {
+.hotspot .editor .bc-paragraph,
+.hotspot .editor .bc-list {
   border: 4px dashed #ABC;
   min-height: 40px !important;
 }
@@ -34,8 +35,9 @@
 .hotspot .editor .bc-section > div > .drpr,
 .hotspot .editor .bc-container > .drpr,
 .hotspot .editor .bc-paragraph > .drpr,
+.hotspot .editor .bc-list > .drpr,
 .hotspot .editor .bc-button > button > span > .drpr {
-  min-height: 40px;
+  min-height: 50px;
   display: block;
 }
 
