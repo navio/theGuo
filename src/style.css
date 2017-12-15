@@ -53,7 +53,7 @@
 .propselect {
   width: 180px;
   display: inline-block;
-  padding: 8px;
+  padding: 6px;
   font-size:12px
 }
 .propselect-label {
@@ -68,29 +68,38 @@ html, body, #root {
 #visualizer-section-wrapper {
   width: 100%;
   height: 100%;
-}
-
-#visualizer-section-header {
-  height: 59px;
+  display: flex;
+  flex-direction: column;
 }
 #visualizer-section-header > * {
   vertical-align: middle;
 }
-#visualizer-section-main {
-  height: calc(100% - 59px);
+#visualizer-section-configuration-wrapper {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 3px solid #E9E9E9;
 }
 #visualizer-section-component-list {
-  float: left;
-  height: 100%;
-  width: 160px;
+  min-width: 150px;
+  background-color: #F6F6F6;
+  display: flex;
+  flex-direction: column;
+}
+#visualizer-component-list-header {
+}
+#visualizer-component-list-content {
+  padding-top: 0 !important;
   overflow: auto;
-  background-color: #E9E9E9;
+}
+#visualizer-section-workspace-header {
+
 }
 #visualizer-section-workspace-wrapper {
-  float: left;
-  width: calc(100% - 160px);
 }
 #visualizer-section-configuration {
+}
+.prop-wrapper {
+  margin: 0 -6px;
 }
 #visualizer-section-workspace {
   padding-top: 0 !important;
@@ -115,4 +124,8 @@ html, body, #root {
   position: relative;
   top: -6px;
   left: 6px;
+}
+
+[draggable], [draggable] * {
+  cursor: move;
 }

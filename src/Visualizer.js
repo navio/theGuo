@@ -72,15 +72,21 @@ const commonPropTypes = [
   'children'
 ];
 
-function resizeLayout() {
-  let main = document.getElementById('visualizer-section-main');
-  let configuration = document.getElementById('visualizer-section-configuration');
-  let workspace = document.getElementById('visualizer-section-workspace');
-  if (main && configuration && workspace) {
-    workspace.style.height = main.offsetHeight - configuration.offsetHeight + 'px';
-  }
+let resizeDebounce = false;
+function resize() {
+  if (resizeDebounce) return;
+  resizeDebounce = setTimeout(() => {
+    resizeDebounce = false;
+    let componentList = document.getElementById('visualizer-section-component-list');
+    let wrapper = document.getElementById('visualizer-section-configuration-wrapper');
+    if (componentList) {
+      componentList.style.height = 0;
+      componentList.style.height = wrapper.offsetHeight + 'px';
+    }
+  });
 }
-document.addEventListener('resize', resizeLayout);
+window.addEventListener('resize', resize);
+window.addEventListener('click', resize);
 
 
 export default class Visualisation extends React.Component {
@@ -95,7 +101,11 @@ export default class Visualisation extends React.Component {
   }
 
   componentDidMount() {
-    resizeLayout();
+    resize();
+  }
+
+  componentDidUpdate() {
+    resize();
   }
 
   updateCurrentComponentProps(props) {
@@ -115,16 +125,20 @@ export default class Visualisation extends React.Component {
   }
   
   renderProps(props) {
-    return props.map((x) => (
-      <div className="propselect" >
-        <div className="propselect-label">
-          {this.getPropLabel(x === 'children' ? 'content' : x)}
-        </div>
-        <div className="propselect-input">
-          {this.getInputForProp(x)}
-        </div>
+    return (
+      <div className="prop-wrapper">
+        { props.map((x) => (
+          <div className="propselect" >
+            <div className="propselect-label">
+              {this.getPropLabel(x === 'children' ? 'content' : x)}
+            </div>
+            <div className="propselect-input">
+              {this.getInputForProp(x)}
+            </div>
+          </div>
+        )) }
       </div>
-    ));
+    );
   }
 
   getPropLabel(name) {
@@ -181,53 +195,59 @@ export default class Visualisation extends React.Component {
     let currentCommonPropTypes = [], currentAdvancedPropTypes = [];
     currentPropTypes.forEach(prop => commonPropTypes.indexOf(prop) > -1 ? currentCommonPropTypes.push(prop) : currentAdvancedPropTypes.push(prop));
 
-    return <div id="visualizer-section-wrapper">
-      <BC.Box paddingSize="small" backgroundColor="black" id="visualizer-section-header">
-        <BC.Image imageHeight="24px"
-          source="http://g-ec2.images-amazon.com/images/G/01/audibleweb/brickcity/1.0/logos/audible_mark_solar._V314169480_.svg" />
-        <BC.LetterSpace />
-        <BC.Text textBold textColor="inverse">Build a widget</BC.Text>
-        <PostButton />
-        <BC.Button inline={true} cssClass="header-button" id="save-button">Save</BC.Button>
-      </BC.Box>
+    return (
+      <div>
+        <div id="visualizer-section-wrapper">
+          <BC.Box paddingSize="small" backgroundColor="black" id="visualizer-section-header">
+            <BC.Image imageHeight="24px"
+              source="http://g-ec2.images-amazon.com/images/G/01/audibleweb/brickcity/1.0/logos/audible_mark_solar._V314169480_.svg" />
+            <BC.LetterSpace />
+            <BC.Text textBold textColor="inverse">Build a widget</BC.Text>
+            <PostButton />
+            <BC.Button inline={true} cssClass="header-button" id="save-button">Save</BC.Button>
+          </BC.Box>
 
-      <div id="visualizer-section-main">
-        <BC.Box id="visualizer-section-component-list">
-          <BC.Heading headingLevel="2" spacing="mini" textSize="medium">
-            1. Choose
-          </BC.Heading>
-          <BC.List listType="nostyle">
-            {components.map((x, l) => (
-              <BC.Link onClick={this.componentChange.bind(this)}>
-                <BC.ListItem>{x}</BC.ListItem>
-              </BC.Link>
-            ))}
-          </BC.List>
-        </BC.Box>
-
-        <div id="visualizer-section-workspace-wrapper">
-          <div id="visualizer-section-configuration">
-            <BC.Box>
-              <BC.Heading headingLevel="2" spacing="mini" textSize="medium">
-                2. Configure (<strong>{this.state.selectedComponent}</strong>)
-              </BC.Heading>
-              <BC.Box hasBorder spacing="mini">
-                <div className="editor" draggable="true" onDragStart={this.dragStart}>{currentComponent}</div>
+          <div id="visualizer-section-configuration-wrapper">
+            <div id="visualizer-section-component-list">
+              <BC.Box id="visualizer-component-list-header">
+                <BC.Heading headingLevel="2" textSize="medium">
+                  1. Choose
+                </BC.Heading>
               </BC.Box>
+              <BC.Box id="visualizer-component-list-content">
+                <BC.List listType="nostyle">
+                  {components.map((x, l) => (
+                    <BC.Link onClick={this.componentChange.bind(this)}>
+                      <BC.ListItem>{x}</BC.ListItem>
+                    </BC.Link>
+                  ))}
+                </BC.List>
+              </BC.Box>
+            </div>
 
-              <div>
-                <BC.Heading headingLevel="2">Common Options</BC.Heading>
-                { this.renderProps(currentCommonPropTypes) }
-              </div>
+            <div id="visualizer-section-configuration">
+              <BC.Box>
+                <BC.Heading headingLevel="2" spacing="mini" textSize="medium">
+                  2. Configure (<strong>{this.state.selectedComponent}</strong>)
+                </BC.Heading>
+                <BC.Box hasBorder spacing="mini">
+                  <div className="editor" draggable="true" onDragStart={this.dragStart}>{currentComponent}</div>
+                </BC.Box>
 
-              <BC.Expander height="10px" showText="Advanced options">
-                  <BC.Heading headingLevel="2" spacingTop="mini">Advanced Options</BC.Heading>
-                  { this.renderProps(currentAdvancedPropTypes) }
-              </BC.Expander>
-            </BC.Box>
+                <div>
+                  <BC.Heading headingLevel="2">Common Options</BC.Heading>
+                  { this.renderProps(currentCommonPropTypes) }
+                </div>
 
-            <div style={{borderBottom: '3px solid #E9E9E9' }} />
+                <BC.Expander height="10px" showText="Advanced options">
+                    <BC.Heading headingLevel="2" spacingTop="mini">Advanced Options</BC.Heading>
+                    { this.renderProps(currentAdvancedPropTypes) }
+                </BC.Expander>
+              </BC.Box>
+            </div>
+          </div>
 
+          <div id="visualizer-section-workspace-header">
             <BC.Box>
               <BC.ToggleSwitch cssClass="bc-pub-float-right" onChange={()=>{document.body.classList.toggle('hotspot')}} labelOff="Preview Mode" labelOn="Preview Mode" />
 
@@ -235,16 +255,18 @@ export default class Visualisation extends React.Component {
             </BC.Box>
           </div>
 
-          <BC.Box id="visualizer-section-workspace">
-            <Content />
-          </BC.Box>
+          <div id="visualizer-section-workspace-wrapper">
+            <BC.Box id="visualizer-section-workspace">
+              <Content />
+            </BC.Box>
+          </div>
+        </div>
+
+        <div id="trash-can" onDragOver={this.prevent} onDrop={this.trashDrop}>
+          <BC.Icon iconType="trash" iconSize="large" />
         </div>
       </div>
-
-      <div id="trash-can" onDragOver={this.prevent} onDrop={this.trashDrop}>
-        <BC.Icon iconType="trash" iconSize="large" />
-      </div>
-    </div>;
+    );
   }
 
 }
