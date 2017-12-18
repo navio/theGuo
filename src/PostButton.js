@@ -2,15 +2,6 @@ import React from 'react';
 import BC from 'ripcity';
 
 class PostButton extends React.Component {
-  constructor(props){
-    super(props);
-
-    // this is shit. I don't care
-    //let worker = new Worker('/public/js/worker.js');
-    //setInterval(function() {
-    //	worker.postMessage([document.querySelector('.drpr').innerHTML]);
-    //}, 5000);
-  }
 
   postData() {
   	console.log(document.querySelector('.drpr').innerHTML);

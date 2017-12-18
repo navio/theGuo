@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import Layout from './Layout';
 import Visualizer from './Visualizer';
-import Content from './Content';
 import './style.css';
 import 'ripcity/dist/styles.css'
 
@@ -14,11 +12,7 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <Layout>
-        <Visualizer />
-      </Layout>
-    );
+    return <Visualizer />;
   }
 }
 

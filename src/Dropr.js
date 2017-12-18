@@ -1,6 +1,5 @@
 import React from 'react';
 import BC from 'ripcity';
-import Drpr from './Dropr';
 
 class Dropr extends React.Component {
   constructor(props) {
@@ -49,7 +48,7 @@ class Dropr extends React.Component {
     ev.stopPropagation();
     if(!ev.dataTransfer.getData('creator')) return;
 
-    let origin = ev.dataTransfer.getData('origin');
+    // let origin = ev.dataTransfer.getData('origin');
     let newComponent = ev.dataTransfer.getData('component');
     let newProps = ev.dataTransfer.getData('props') ? 
     JSON.parse(ev.dataTransfer.getData('props')) : {};
@@ -79,7 +78,7 @@ others['outerContainer'] = {
 
     let currentContent = this.state.content;
     currentContent = Array.isArray(currentContent) ? currentContent : [];
-    let location = currentContent.push(newElement);
+    currentContent.push(newElement);
     
     window.elementMap[currentMap] = { type: newComponent, 
                                   props: newProps, 

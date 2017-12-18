@@ -1,10 +1,8 @@
 import React from 'react';
 import BC from 'ripcity';
-import Dropr from './Dropr.js';
 import Content from './Content';
 import PostButton from './PostButton';
 
-const logo = 'https://m.media-amazon.com/images/G/01/audibleweb/arya/navigation/audible_logo._V517446980_.svg';
 const initialComponent = 'Button'
 
 let components = ["Alert", "AudioButton", "Box", "Button", "Container", "Divider", "Dropdown", "DropdownOption", "GridColumn", "GridRow", "Heading", "Icon", "Image", "Link", "List", "ListItem", "Pipe","Section", "Text", "TextInput"];
@@ -194,7 +192,7 @@ export default class Visualisation extends React.Component {
         if(!ev.dataTransfer.getData('editor')) return;
 
         let mapElement = ev.dataTransfer.getData('origin');
-        let {type, props, deleteMe} = window.elementMap[mapElement];
+        let {type, props} = window.elementMap[mapElement];
         // let child = ev.dataTransfer.getData('location');
         this.setState({selectedComponent: type,
                         currentProps: props
